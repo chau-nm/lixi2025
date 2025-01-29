@@ -1,7 +1,6 @@
 const LUCKY_MONEY_SIZE = 12;
 const MONEY = ['50.000 vnđ', '40.000 vnđ', '30.000 vnđ', '20.000 vnđ', '10.000 vnđ'];
 
-const luckyMoneyList = [];
 const app = document.getElementById('app');
 
 const renderStartButton = () => {
@@ -57,7 +56,6 @@ const selectStarting = () => {
     
     for (let i = 0; i < LUCKY_MONEY_SIZE; i++) {
         const price = MONEY[Math.floor(Math.random() * (MONEY.length - 1))];
-        luckyMoneyList.push(price);
         luckyMoneyWrapper.appendChild(drawLuckyMoneyEnvelope(price, i));
     }
 }
