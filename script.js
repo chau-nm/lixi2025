@@ -1,4 +1,4 @@
-const LUCKY_MONEY_SIZE = 10;
+const LUCKY_MONEY_SIZE = 12;
 const MONEY = ['50.000 vnđ', '40.000 vnđ', '30.000 vnđ', '20.000 vnđ', '10.000 vnđ'];
 
 const luckyMoneyList = [];
