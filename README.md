@@ -68,4 +68,4 @@ This project is inspired by and forked from [@chau-nm](https://github.com/chau-n
 
 ## License
 
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License, based on the [original project](https://github.com/chau-nm/lixi2025) with permission from the author.
