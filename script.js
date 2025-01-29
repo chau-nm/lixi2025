@@ -28,6 +28,7 @@ const selectStarting = () => {
         luckyMoney.className = "lucky-money";
         luckyMoney.style.animationDelay = `${index * 0.3}s`;
         luckyMoney.addEventListener('click', () => {
+            luckyMoney.style.animationDelay = 'unset';
             luckyMoney.classList.add("open");
             drawLuckyMoneyCore(price);
         });
