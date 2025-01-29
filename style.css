@@ -1,158 +1,211 @@
-.start-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: none;
-    background-color: red;
-    color: #FFFFFF;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: opacity 0.3s;
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background: #f5f5f5;
 }
 
-.start-button:hover {
-    opacity: 0.8;
+#app {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
 }
 
 .lucky-money-wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(13%, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    height: calc(100vh - 20px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .lucky-money {
-    border-radius: 5px;
-    box-shadow: 2px 2px 8px #000000;
-    user-select: none;
-    overflow: hidden;
+    width: 100%;
+    position: relative;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
     cursor: pointer;
-    opacity: 0;
-    animation: display 1s forwards;
-    transition: transform 0.3s;
+    margin-bottom: 10px;
 }
 
-.lucky-money img {
+.lucky-money.selected {
+    position: relative;
+    z-index: 2;
+}
+
+.lucky-money.selected::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 2px solid #e60012;
+    border-radius: 12px;
+    background:
+            url("/asset/new-year-border.png") top left / 25% no-repeat,
+            url("/asset/new-year-border.png") top right / 25% no-repeat,
+            url("/asset/new-year-border.png") bottom left / 25% no-repeat,
+            url("/asset/new-year-border.png") bottom right / 25% no-repeat;
+    transform: rotate(0deg);
+    z-index: -1;
+}
+
+.lucky-money.flipped {
+    transform: rotateY(180deg);
+}
+
+.lucky-money-front,
+.lucky-money-back {
+    position: absolute;
     width: 100%;
     height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
-@keyframes display {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.lucky-money-front {
+    z-index: 2;
+    background: #e60012;
 }
 
-.lucky-money:hover {
-    transform: scale(1.015);
+.lucky-money-front img,
+.lucky-money-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.lucky-money.open {
-    animation: hide 1s forwards;
-}
-
-@keyframes hide {
-    0% {
-        scale: 1;
-        opacity: 1;
-    }
-    100% {
-        scale: 0;
-        opacity: 0;
-    }
-}
-
-.lucky-money-core-wrapper {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    top: 0;
-    left: 0;
-    opacity: 0;
-    animation: open 1s forwards 1s;
-}
-
-@keyframes open {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-.lucky-money-core {
-    position: absolute;
+.lucky-money-back {
+    transform: rotateY(180deg);
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #FFFFFF;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 4rem;
-    width: 800px;
-    height: 500px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 8px #000000;
-    background: url("./asset/congratulations.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    animation: openCore 1s forwards 2s;
+    background: #e60012;
 }
 
-.reset-button {
+.lucky-money-back-content {
     position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #FFFFFF;
-    padding: 10px 20px;
-    color: red;
-    border: none;
-    border-radius: 10px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #ffd700;
+    font-size: clamp(3rem, 4vw, 2rem);
     font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.shuffle-button,
+.music-button {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    background-color: #e60012;
+    color: #ffd700;
+    border: none;
+    border-radius: 50%;
     cursor: pointer;
-    transition: opacity 0.3s;
+    z-index: 10;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
 }
 
-.reset-button:hover {
-    opacity: 0.7;
+.shuffle-button {
+    bottom: 20px;
+    right: 20px;
 }
 
-@keyframes openCore {
-    0% {
-        transform: translate(-50%, -50%) scale(0);
-        opacity: 0;
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
+.music-button {
+    bottom: 20px;
+    right: 90px;
 }
 
-@media screen and (max-width: 800px) {
+.shuffle-button:hover,
+.music-button:hover {
+    background-color: #cc0010;
+}
+
+.shuffle-button svg,
+.music-button svg {
+    width: 30px;
+    height: 30px;
+}
+
+@media (max-width: 1024px) {
     .lucky-money-wrapper {
-        grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
-    }
-
-    .lucky-money-core {
-        width: 100vw;
-        height: 300px;
+        grid-template-columns: repeat(4, 1fr);
     }
 }
+
+@media (max-width: 768px) {
+    .lucky-money-wrapper {
+        grid-template-columns: repeat(3, 1fr);
+        padding: 5px;
+        gap: 5px;
+    }
+
+    .lucky-money {
+        margin-bottom: 5px;
+    }
+
+    .lucky-money-back-content {
+        font-size: 24px;
+    }
+
+
+.shuffle-button,
+.music-button {
+    width: 50px;
+    height: 50px;
+    bottom: 10px;
+}
+
+    .shuffle-button {
+        right: 10px;
+    }
+
+    .music-button {
+        right: 70px;
+    }
+
+    .shuffle-button svg,
+    .music-button svg {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .lucky-money-wrapper {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+    }
+}
+
+@media (max-width: 360px) {
+    .lucky-money-wrapper {
+        padding: 3px;
+        gap: 3px;
+    }
+}
+
