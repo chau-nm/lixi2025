@@ -138,70 +138,80 @@ const shuffleAnimation = (envelopes) => {
     }
 
     shuffleArray(luckyMoneyList)
-
     const gatherCards = () => {
         return new Promise((resolve) => {
             anime({
                 targets: ".lucky-money",
                 translateX: (el) => {
-                    const rect = el.getBoundingClientRect()
-                    return centerX - rect.left - rect.width / 2
+                    const rect = el.getBoundingClientRect();
+                    return centerX - rect.left - rect.width / 2;
                 },
                 translateY: (el) => {
-                    const rect = el.getBoundingClientRect()
-                    return centerY - rect.top - rect.height / 2
+                    const rect = el.getBoundingClientRect();
+                    return centerY - rect.top - rect.height / 2;
                 },
-                rotate: 0,
-                duration: 400,
-                easing: "easeInOutQuad",
-                delay: anime.stagger(30),
+                delay: anime.stagger(10, {
+                    from: 'center',
+                    easing: 'easeOutQuad' // Easing cho stagger effect
+                }),
+                rotate: {
+                    value: 360,
+                    duration: 100,
+                    easing: 'easeOutCubic' // Easing riêng cho xoay
+                },
+                duration: 240, // Tăng thời gian để chuyển động mượt hơn
                 complete: () => {
-                    setTimeout(resolve, 500)
+                    setTimeout(resolve, 500);
                 },
-            })
-        })
-    }
-
+            });
+        });
+    };
     const shuffleCards = () => {
         return new Promise((resolve) => {
             anime({
                 targets: ".lucky-money",
                 rotate: [
-                    { value: -10, duration: 100 },
-                    { value: 10, duration: 100 },
-                    { value: -10, duration: 100 },
-                    { value: 10, duration: 100 },
-                    { value: 0, duration: 100 },
+                    { value: 350, duration: 100 },
+                    { value: 370, duration: 100 },
+                    { value: 350, duration: 100 },
+                    { value: 370, duration: 100 },
+                    { value: 360, duration: 100 }, // Giữ góc xoay ở 360
                 ],
-                duration: 1000,
+                duration: 2000,
                 easing: "easeInOutSine",
-                complete: resolve,
-            })
-        })
-    }
+                complete: () => {
+                    setTimeout(resolve, 500);
+                },
+            });
+        });
+    };
 
     const distributeCards = () => {
         return new Promise((resolve) => {
-            anime({
-                targets: ".lucky-money",
-                translateX: 0,
-                translateY: 0,
-                duration: 400,
-                complete: () => {
-                    envelopes.forEach((envelope, index) => {
-                        envelope.style.transform = ""
-                        envelope.classList.remove("shuffling")
-                        envelope.dataset.price = luckyMoneyList[index]
-                        envelope.querySelector(".lucky-money-back-content").textContent = luckyMoneyList[index]
-                    })
-                    isShuffling = false
-                    canSelect = true
-                    resolve()
-                },
-            })
-        })
-    }
-
+            anime.timeline()
+                .add({
+                    targets: ".lucky-money",
+                    translateX: 0,
+                    translateY: 0,
+                    duration: 120,
+                    rotate:0,
+                    delay: anime.stagger(40, {
+                        from: 'center'
+                    }),
+                    complete: () => {
+                        envelopes.forEach((envelope, index) => {
+                            envelope.style.transform = ''
+                            envelope.classList.remove("shuffling");
+                            envelope.dataset.price = luckyMoneyList[index];
+                            envelope.querySelector(".lucky-money-back-content").textContent = luckyMoneyList[index];
+                        });
+                        isShuffling = false;
+                        canSelect = true;
+                        resolve();
+                    }
+                });
+        });
+    };
     flipAllCardsDown()
         .then(gatherCards)
         .then(shuffleCards)
@@ -211,12 +221,7 @@ const shuffleAnimation = (envelopes) => {
         })
 }
 
-const playMusic = () => {
-    const audio = document.getElementById("music")
-    audio.play()
-    isMusicPlaying = true
-    updateMusicButtonIcon()
-}
+
 
 const toggleMusic = () => {
     const audio = document.getElementById("music")
