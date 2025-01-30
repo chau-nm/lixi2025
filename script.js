@@ -25,6 +25,24 @@ const initializeGame = () => {
     luckyMoneyWrapper.className = "lucky-money-wrapper"
     app.appendChild(luckyMoneyWrapper)
 
+    const displayGift = (gift) => {
+        const luckyMoneyCoreWrapper = document.createElement("div");
+        luckyMoneyCoreWrapper.className = "lucky-money-core-wrapper";
+        const luckyMoneyCore = document.createElement("div");
+        luckyMoneyCore.className = "lucky-money-core";
+        luckyMoneyCore.innerHTML = gift;
+        const resetButton = document.createElement("button");
+        resetButton.className = "reset-button";
+        resetButton.innerHTML = "X";
+        resetButton.addEventListener("click", () => {
+            luckyMoneyCoreWrapper.remove();
+        })
+        luckyMoneyCore.appendChild(resetButton);
+
+        luckyMoneyCoreWrapper.appendChild(luckyMoneyCore);
+        app.appendChild(luckyMoneyCoreWrapper);
+    }
+
     const drawLuckyMoneyEnvelope = (price, index) => {
         const luckyMoney = document.createElement("div")
         luckyMoney.className = "lucky-money flipped"
@@ -70,6 +88,10 @@ const initializeGame = () => {
                         document.querySelectorAll(".lucky-money:not(.selected)").forEach((card) => {
                             card.classList.add("flipped")
                         })
+
+                        setTimeout(() => {
+                            displayGift(luckyMoney.dataset.price)
+                        }, 120)
                     }, 500) // Đợi 500ms trước khi lật các lá bài khác
 
 
@@ -220,6 +242,8 @@ const shuffleAnimation = (envelopes) => {
             console.log("Animation completed")
         })
 }
+
+
 
 
 

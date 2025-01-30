@@ -62,6 +62,7 @@ html {
     transform: rotateY(180deg);
 }
 
+
 .lucky-money-front,
 .lucky-money-back {
     position: absolute;
@@ -72,6 +73,14 @@ html {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
+
+.lucky-money.selected > .lucky-money-back > .lucky-money-back-content  {
+    background-color: rgba(139, 0, 0, 0.5);
+    color: #FFD700;
+    font-size: 30px;
+    font-weight: 700;
+}
+
 
 .lucky-money-front {
     z-index: 2;
@@ -207,3 +216,76 @@ html {
     }
 }
 
+.lucky-money-core-wrapper {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    opacity: 0;
+    animation: open 1s forwards 1s;
+}
+
+@keyframes open {
+    0% {
+        opacity: 0;
+        z-index: 0;
+    }
+    100% {
+        opacity: 1;
+        z-index: 100;
+
+    }
+}
+
+.lucky-money-core {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 4rem;
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+    box-shadow: 2px 2px 8px #000000;
+    background: url("./asset/congratulations.jpg") no-repeat;
+    background-size: cover;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation: openCore 1s forwards 2s;
+}
+
+@keyframes openCore {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+
+.reset-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    transform: translateX(-50%);
+    background-color: #FFFFFF;
+    padding:  4px 8px;
+    color: red;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
