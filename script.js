@@ -133,7 +133,7 @@ const shuffleAnimation = (envelopes) => {
             setTimeout(() => {
                 canSelect = true
             }, 2000)
-            setTimeout(resolve, 600)
+            setTimeout(resolve, 1000)
         })
     }
 
