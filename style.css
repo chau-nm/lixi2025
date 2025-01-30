@@ -29,20 +29,26 @@ html {
 .lucky-money {
     width: 100%;
     position: relative;
-    transition: transform 0.6s;
+    transition: all 0.4s;
     transform-style: preserve-3d;
     cursor: pointer;
     margin-bottom: 10px;
 }
 
+.lucky-money.selected > .lucky-money-back > .lucky-money-back-content {
+    background-color: rgba(139, 0, 0, 0.5);
+}
+
 .lucky-money.selected {
     position: relative;
     z-index: 2;
+    transition: all 0.4s;
 }
 
 .lucky-money.selected::before {
     content: "";
     position: absolute;
+    transition: all 0.4s;
     top: -8px;
     left: -8px;
     right: -8px;
@@ -74,12 +80,7 @@ html {
     overflow: hidden;
 }
 
-.lucky-money.selected > .lucky-money-back > .lucky-money-back-content  {
-    background-color: rgba(139, 0, 0, 0.5);
-    color: #FFD700;
-    font-size: 30px;
-    font-weight: 700;
-}
+
 
 
 .lucky-money-front {
@@ -100,6 +101,7 @@ html {
     justify-content: center;
     align-items: center;
     background: #e60012;
+    opacity: 1;
 }
 
 .lucky-money-back-content {
@@ -111,12 +113,14 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: #ffd700;
-    font-size: clamp(3rem, 4vw, 2rem);
-    font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: all 0.4s;
+    color: #FFD700;
+    font-size: clamp(3rem, 4vw, 2rem);
+    font-weight: 700;
 }
+
 
 .shuffle-button,
 .music-button {

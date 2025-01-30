@@ -73,17 +73,10 @@ const initializeGame = () => {
 
         luckyMoney.addEventListener("click", () => {
             if (canSelect && !luckyMoney.classList.contains("shuffling") && !luckyMoney.classList.contains("selected")) {
-                luckyMoney.classList.add("selected")
                 canSelect = false
-
-                // Lật lá bài được chọn trước
-                luckyMoney.classList.remove("flipped")
-
+                luckyMoney.classList.add("selected")
+                luckyMoney.classList.add("flipped")
                 setTimeout(() => {
-                    // Lật lại lá bài được chọn
-                    luckyMoney.classList.add("flipped")
-
-                    // Sau đó lật những lá bài còn lại
                     setTimeout(() => {
                         document.querySelectorAll(".lucky-money:not(.selected)").forEach((card) => {
                             card.classList.add("flipped")
@@ -92,7 +85,7 @@ const initializeGame = () => {
                         setTimeout(() => {
                             displayGift(luckyMoney.dataset.price)
                         }, 120)
-                    }, 500) // Đợi 500ms trước khi lật các lá bài khác
+                    }, 800) // Đợi 500ms trước khi lật các lá bài khác
 
 
                 }, 1000) // Đợi 1 giây trước khi lật lại lá bài được chọn
@@ -193,21 +186,21 @@ const shuffleAnimation = (envelopes) => {
             anime({
                 targets: ".lucky-money",
                 rotate: [
-                    { value: 350, duration: 100 },
-                    { value: 370, duration: 100 },
-                    { value: 350, duration: 100 },
-                    { value: 370, duration: 100 },
-                    { value: 360, duration: 100 }, // Giữ góc xoay ở 360
+                    { value: 320, duration: 100 },
+                    { value: 400, duration: 100 },
+                    { value: 320, duration: 100 },
+                    { value: 400, duration: 100 },
+                    { value: 360, duration: 100 },
                 ],
-                duration: 2000,
+                duration: 2500,
                 easing: "easeInOutSine",
+                delay: anime.stagger(40), // Delay for each card to start staggered
                 complete: () => {
-                    setTimeout(resolve, 500);
+                    setTimeout(resolve, 500); // Resolve after animation finishes
                 },
             });
         });
     };
-
     const distributeCards = () => {
         return new Promise((resolve) => {
             anime.timeline()
