@@ -1,7 +1,7 @@
 const LUCKY_MONEY_SIZE = 12
 const MONEY = {
-    "50.000 vnđ": 7,
-    "100.000 vnđ": 4,
+    "50.000 vnđ": 8,
+    "100.000 vnđ": 3,
     "200.000 vnđ": 1,
 }
 
