@@ -241,6 +241,5 @@ const updateMusicButtonIcon = () => {
 }
 
 initializeGame()
-playMusic()
 
 
