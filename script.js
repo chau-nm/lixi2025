@@ -16,7 +16,7 @@ const shuffleArray = (array) => {
 const luckyMoneyList = []
 const app = document.getElementById("app")
 let isShuffling = false
-let canSelect = true
+let canSelect = false
 let isMusicPlaying = false
 
 const initializeGame = () => {
@@ -85,7 +85,7 @@ const initializeGame = () => {
                         setTimeout(() => {
                             displayGift(luckyMoney.dataset.price)
                         }, 120)
-                    }, 800) // Đợi 500ms trước khi lật các lá bài khác
+                    }, 600) // Đợi 500ms trước khi lật các lá bài khác
 
 
                 }, 1000) // Đợi 1 giây trước khi lật lại lá bài được chọn
